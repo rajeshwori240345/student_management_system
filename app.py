@@ -1,9 +1,8 @@
 from flask import Flask, request, render_template, redirect, url_for, flash, session
 from flask_sqlalchemy import SQLAlchemy
-from werkzeug.security import generate_password_hash, check_password_hash
+from werkzeug.security import check_password_hash
 from cryptography.fernet import Fernet
 import pyotp
-import os
 
 app = Flask(__name__)
 app.secret_key = "your_secret_key"
