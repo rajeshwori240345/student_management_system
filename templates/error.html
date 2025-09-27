@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% block title %}Error - Secure SMS{% endblock %}
+{% block content %}
+<section class="card">
+  <h1>Error</h1>
+  <p>{{ message }}</p>
+  <a class="btn-secondary" href="{{ url_for('dashboard') }}">Return to dashboard</a>
+</section>
+{% endblock %}
