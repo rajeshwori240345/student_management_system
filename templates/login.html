@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block title %}Login - Secure SMS{% endblock %}
+{% block content %}
+<section class="card">
+  <h1>Login</h1>
+  <form method="post" novalidate>
+    {{ form.hidden_tag() }}
+    <div class="form-group">
+      {{ form.username.label }}
+      {{ form.username(class_='input-control') }}
+      {% for error in form.username.errors %}
+      <span class="error">{{ error }}</span>
+      {% endfor %}
+    </div>
+    <div class="form-group">
+      {{ form.password.label }}
+      {{ form.password(class_='input-control') }}
+      {% for error in form.password.errors %}
+      <span class="error">{{ error }}</span>
+      {% endfor %}
+    </div>
+    <div class="form-actions">
+      {{ form.submit(class_='btn-primary') }}
+    </div>
+  </form>
+  <p class="info">Default admin credentials: admin / ChangeMe123! (update after first login).</p>
+</section>
+{% endblock %}

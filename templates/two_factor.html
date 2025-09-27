@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% block title %}Two-Factor Verification - Secure SMS{% endblock %}
+{% block content %}
+<section class="card">
+  <h1>Two-Factor Verification</h1>
+  <p>Enter the OTP from your authenticator app and the OTP emailed to you.</p>
+  <div class="qr-wrapper">
+    <p>Scan this QR code with Google Authenticator or any TOTP app:</p>
+    <img src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data={{ qr_uri|urlencode }}" alt="TOTP QR code">
+    <p class="hint">If you cannot scan, use the secret: <code>{{ g.user.otp_secret }}</code></p>
+  </div>
+  <form method="post" novalidate>
+    {{ form.hidden_tag() }}
+    <div class="form-group">
+      {{ form.email_token.label }}
+      {{ form.email_token(class_='input-control') }}
+      {% for error in form.email_token.errors %}
+      <span class="error">{{ error }}</span>
+      {% endfor %}
+    </div>
+    <div class="form-group">
+      {{ form.otp_token.label }}
+      {{ form.otp_token(class_='input-control') }}
+      {% for error in form.otp_token.errors %}
+      <span class="error">{{ error }}</span>
+      {% endfor %}
+    </div>
+    <div class="form-group">
+      {{ form.biometric_phrase.label }}
+      {{ form.biometric_phrase(class_='input-control') }}
+      {% for error in form.biometric_phrase.errors %}
+      <span class="error">{{ error }}</span>
+      {% endfor %}
+    </div>
+    <div class="form-actions">
+      {{ form.submit(class_='btn-primary') }}
+    </div>
+  </form>
+</section>
+{% endblock %}

@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}Secure Student Management System{% endblock %}</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" integrity="sha512-oHDEc8XedUuH0BPDLJrKH0rGZWlznImPi0tLxe168Q5e0sJmq9hw3rroWAtxEvsC0BpFkOuk+qS0bkkO1hBQdw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    {% block head_extra %}{% endblock %}
+  </head>
+  <body>
+    <nav class="navbar">
+      <div class="navbar-brand">Secure SMS</div>
+      <ul class="navbar-links">
+        {% if g.user %}
+        <li><a href="{{ url_for('dashboard') }}">Dashboard</a></li>
+        {% if g.user.role in ['admin', 'teacher'] %}
+        <li><a href="{{ url_for('add_student') }}">Add Student</a></li>
+        {% endif %}
+        {% if g.user.role == 'admin' %}
+        <li><a href="{{ url_for('register') }}">Add User</a></li>
+        <li><a href="{{ url_for('view_activity') }}">Activity Logs</a></li>
+        <li><a href="{{ url_for('backup_database') }}">Backup</a></li>
+        {% endif %}
+        <li><button id="dark-mode-toggle" class="btn-link" type="button">Toggle Theme</button></li>
+        <li><a href="{{ url_for('logout') }}">Logout</a></li>
+        {% else %}
+        <li><button id="dark-mode-toggle" class="btn-link" type="button">Toggle Theme</button></li>
+        {% endif %}
+      </ul>
+    </nav>
+
+    <main class="container">
+      {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+        <div class="flash-container">
+          {% for category, message in messages %}
+            <div class="flash flash-{{ category }}">{{ message|safe }}</div>
+          {% endfor %}
+        </div>
+        {% endif %}
+      {% endwith %}
+
+      {% block content %}{% endblock %}
+    </main>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.6.2/axios.min.js" integrity="sha512-R2tYQgL4e+Q+dC8/FRl17jlVYptipDU0FFO4i/QU5Bu3gg0ZZNr9Q7Q+HFN4bIHGEMoU1QgCQ4L5WbX6n2vlvg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+    {% block body_extra %}{% endblock %}
+  </body>
+</html>

@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% block title %}Register User - Secure SMS{% endblock %}
+{% block content %}
+<section class="card">
+  <h1>Create User</h1>
+  <form method="post" novalidate>
+    {{ form.hidden_tag() }}
+    <div class="form-grid">
+      <div class="form-group">
+        {{ form.username.label }}
+        {{ form.username(class_='input-control') }}
+        {% for error in form.username.errors %}
+        <span class="error">{{ error }}</span>
+        {% endfor %}
+      </div>
+      <div class="form-group">
+        {{ form.email.label }}
+        {{ form.email(class_='input-control') }}
+        {% for error in form.email.errors %}
+        <span class="error">{{ error }}</span>
+        {% endfor %}
+      </div>
+      <div class="form-group">
+        {{ form.role.label }}
+        {{ form.role(class_='input-control') }}
+        {% for error in form.role.errors %}
+        <span class="error">{{ error }}</span>
+        {% endfor %}
+      </div>
+      <div class="form-group">
+        {{ form.password.label }}
+        {{ form.password(class_='input-control') }}
+        {% for error in form.password.errors %}
+        <span class="error">{{ error }}</span>
+        {% endfor %}
+      </div>
+      <div class="form-group">
+        {{ form.biometric_phrase.label }}
+        {{ form.biometric_phrase(class_='input-control') }}
+        <small class="hint">Example: a secure passphrase only the user knows.</small>
+        {% for error in form.biometric_phrase.errors %}
+        <span class="error">{{ error }}</span>
+        {% endfor %}
+      </div>
+    </div>
+    <div class="form-actions">
+      {{ form.submit(class_='btn-primary') }}
+    </div>
+  </form>
+</section>
+{% endblock %}
